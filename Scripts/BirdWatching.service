@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve BirdWatching app
+After=network.target
+
+[Service]
+User=vagrant
+Group=www-data
+WorkingDirectory=/home/vagrant/BirdWatchingApp
+Environment="PATH=/home/vagrant/BirdWatchingApp/venv1/bin"
+ExecStart=/home/vagrant/BirdWatchingApp/venv1/bin/gunicorn --workers 3 --bind unix:BirdWatchingApp.sock -m 007 app:app
+
+[Install]
+WantedBy=multi-user.target

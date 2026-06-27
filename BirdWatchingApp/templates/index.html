@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            place-items: center;
+        }
+        .post {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 600px;
+            border: 2px solid black;
+            border-radius: 5%;
+            padding: 10px;
+            width: 400px;
+        }
+    </style>
+    <title>BirdWatchingLB</title>
+</head>
+<body>
+    <div class="post">
+        <img src="/static/{{photo}}.jpg" alt="bird photo" width="200">
+        <h3>{{description}}</h3>
+        <h4>Location: {{location}}</h4>
+    </div>
+</body>
+</html>
