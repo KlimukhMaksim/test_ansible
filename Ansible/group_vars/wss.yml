@@ -1,0 +1,6 @@
+app_name: BirdWatching
+user: vagrant
+app_dir: "/home/{{ user }}/{{ app_name }}"
+repo_url: "https://github.com/KlimukhMaksim/test_ansible.git"
+
+app_port: 5000
