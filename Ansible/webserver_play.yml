@@ -1,0 +1,88 @@
+---
+- name: Web-Server configuration
+  hosts: wss
+  become: true
+  tasks:
+    - name: Update OS packages
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install packages
+      ansible.builtin.apt:
+        name:
+          - git
+          - python3-packaging
+          - python3-pip
+          - python3.12-venv
+          - nginx
+        state: present
+
+    - name: Clone repo
+      ansible.builtin.git:
+        repo: "{{ repo_url }}"
+        dest: "{{ app_dir }}"
+      become: true
+      become_user: "{{ user }}"
+
+    - name: Dependencies instalation
+      ansible.builtin.pip:
+        requirements: "{{ app_dir }}/BirdWatchingApp/requirements.txt"
+        virtualenv: "{{ app_dir }}/BirdWatchingApp/venv"
+        virtualenv_command: python3 -m venv
+      become: true
+      become_user: "{{ user }}"
+
+    - name: Create .env
+      ansible.builtin.template:
+        src: templates/app.env.j2
+        dest: "{{ app_dir }}/BirdWatchingApp/.env"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0600"
+      notify: Restart gunicorn
+
+    - name: Create gunicorn service
+      ansible.builtin.template:
+        src: templates/gunicorn_{{ app_name }}.service.j2
+        dest: "/etc/systemd/system/{{ app_name }}.service"
+        mode: "0644"
+      notify: Restart gunicorn
+
+    - name: Start and enable gunicorn
+      ansible.builtin.systemd:
+        name: "{{ app_name }}"
+        enabled: true
+        state: started
+
+    - name: Create nginx config
+      ansible.builtin.template:
+        src: templates/nginx_{{ app_name }}.j2
+        dest: "/etc/nginx/sites-available/{{ app_name }}"
+        mode: "0644"
+      notify: Restart Nginx
+
+    - name: Enable nginx
+      ansible.builtin.file:
+        src: "/etc/nginx/sites-available/{{ app_name }}"
+        dest: "/etc/nginx/sites-enabled/{{ app_name }}"
+        state: link
+      notify: Restart Nginx
+
+    - name: Remove default from sites-enabled
+      ansible.builtin.file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+      notify: Restart Nginx
+
+
+  handlers:
+    - name: Restart gunicorn
+      ansible.builtin.systemd:
+        name: "{{ app_name }}"
+        state: restarted
+        daemon_reload: true
+    
+    - name: Restart Nginx
+      ansible.builtin.systemd:
+        name: nginx
+        state: restarted
