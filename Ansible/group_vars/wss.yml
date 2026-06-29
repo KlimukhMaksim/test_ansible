@@ -1,5 +1,5 @@
 app_name: BirdWatching
-user: jenkins
+user: vagrant
 app_dir: "/home/{{ user }}/{{ app_name }}"
 repo_url: "https://github.com/KlimukhMaksim/test_ansible.git"
 
