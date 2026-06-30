@@ -1,6 +1,13 @@
-app_source_path: "{{ playbook_dir }}/../src/"
-app_name: flaskapp
-app_dir: /opt/flaskapp
-venv_dir: /opt/flaskapp/venv
-app_user: www-data
+app_name: BirdWatching
+app_dir: "/home/{{ user }}/{{ app_name }}"
+user: vagrant
+repo_url: "https://github.com/KlimukhMaksim/test_ansible.git"
 app_port: 5000
+
+db_host: "192.168.1.110"
+db_port: 3306
+
+
+# app_source_path: "{{ playbook_dir }}/../src/"
+# app_user: www-data
+# venv_dir: /opt/flaskapp/venv
