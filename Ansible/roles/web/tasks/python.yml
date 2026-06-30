@@ -1,16 +1,7 @@
----
-- name: Create Python virtual environment
-  ansible.builtin.command:
-    cmd: python3 -m venv {{ venv_dir }}
-    creates: "{{ venv_dir }}/bin/activate"
-
-- name: Install Python dependencies
+- name: Dependencies instalation
   ansible.builtin.pip:
-    requirements: "{{ app_dir }}/requirements.txt"
-    virtualenv: "{{ venv_dir }}"
-  notify: restart gunicorn
-
-- name: Install Gunicorn
-  ansible.builtin.pip:
-    name: gunicorn
-    virtualenv: "{{ venv_dir }}"
+    requirements: "{{ app_dir }}/BirdWatchingApp/requirements.txt"
+    virtualenv: "{{ app_dir }}/BirdWatchingApp/venv"
+    virtualenv_command: python3 -m venv
+  become: true
+  become_user: "{{ user }}"
