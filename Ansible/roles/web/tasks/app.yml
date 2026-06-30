@@ -1,6 +1,6 @@
 - name: Clone repo
-      ansible.builtin.git:
-        repo: "{{ repo_url }}"
-        dest: "{{ app_dir }}"
-      become: true
-      become_user: "{{ user }}"
+  ansible.builtin.git:
+    repo: "{{ repo_url }}"
+    dest: "{{ app_dir }}"
+  become: true
+  become_user: "{{ user }}"
