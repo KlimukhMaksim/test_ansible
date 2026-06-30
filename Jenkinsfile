@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Flask application playbook') {
+        stage('Webserver playbook') {
             steps {
                 withCredentials([
                     string(
