@@ -1,0 +1,6 @@
+- import_tasks: install.yml
+- import_tasks: app.yml
+- import_tasks: python.yml
+- import_tasks: set_env.yml
+- import_tasks: gunicorn.yml
+- import_tasks: nginx.yml

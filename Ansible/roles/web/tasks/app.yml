@@ -1,0 +1,10 @@
+---
+- name: Create application user group
+  ansible.builtin.group:
+    name: "{{ app_user }}"
+    state: present
+
+- name: Copy app files
+  ansible.builtin.copy:
+    src: "{{ app_source_path }}"
+    dest: "{{ app_dir }}/"

@@ -1,0 +1,6 @@
+app_source_path: "{{ playbook_dir }}/../src/"
+app_name: flaskapp
+app_dir: /opt/flaskapp
+venv_dir: /opt/flaskapp/venv
+app_user: www-data
+app_port: 5000
