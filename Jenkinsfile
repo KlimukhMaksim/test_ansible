@@ -28,7 +28,7 @@ pipeline {
                             secret_key: "$SECRET_KEY"
                         ],
                         installation: 'Ansible',
-                        playbook: 'Ansible/webserver_play.yml',
+                        playbook: 'Ansible/app_playbook.yml',
                         inventory: 'Ansible/inventory.yml'
                     )
                 }
