@@ -2,6 +2,33 @@ pipeline {
     agent any
 
     stages {
+        stage('MariaDB playbook') {
+            steps {
+                withCredentials([
+                    string(
+                        credentialsId: 'database_name',
+                        variable: 'DB_NAME'
+                    ),
+                    usernamePassword(
+                        credentialsId: 'database_credentials',
+                        passwordVariable: 'DB_PASSWORD',
+                        usernameVariable: 'DB_USER'
+                    )
+                ]) {
+                    ansiblePlaybook(
+                        credentialsId: 'vm_ssh_key',
+                        extraVars: [
+                            db_name: "$DB_NAME",
+                            db_user: "$DB_USER",
+                            db_password: "$DB_PASSWORD"
+                        ],
+                        installation: 'Ansible',
+                        playbook: 'Ansible/db_playbook.yml'
+                    )
+                }
+            }
+        }
+
         stage('Webserver playbook') {
             steps {
                 withCredentials([
