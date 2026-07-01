@@ -1,0 +1,5 @@
+mariadb_name: "{{ db_name }}"
+mariadb_user: "{{ db_user }} "
+mariadb_password: "{{ db_password }}"
+mariadb_bind_address: 0.0.0.0
+mariadb_allowed_host: "192.168.1.%"
