@@ -23,7 +23,8 @@ pipeline {
                             db_password: "$DB_PASSWORD"
                         ],
                         installation: 'Ansible',
-                        playbook: 'Ansible/db_playbook.yml'
+                        playbook: 'Ansible/db_playbook.yml',
+                        inventory: 'Ansible/inventory.yml'
                     )
                 }
             }
