@@ -1,3 +1,4 @@
+---
 - name: Create database
   ansible.mysql.mysql_db:
     name: "{{ mariadb_name }}"
