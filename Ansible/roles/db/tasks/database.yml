@@ -1,6 +1,6 @@
 ---
 - name: Create database
-  ansible.mysql.mysql_db:
+  community.mysql.mysql_db:
     name: "mariadb_name"
     state: present
     login_unix_socket: /var/run/mysqld/mysqld.sock
