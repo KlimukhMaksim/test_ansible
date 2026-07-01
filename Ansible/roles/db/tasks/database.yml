@@ -2,9 +2,9 @@
 - name: Create database
   become: yes
   ansible.mysql.mysql_db:
-    name: "{{ mariadb_name }}"
+    name: "mariadb_name"
     state: present
-    login_unix_socket: "{{ mariadb_socket }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
 
 - name: Create user and grant privileges
   become: yes
