@@ -1,0 +1,3 @@
+---
+dependencies:
+  - collection: community.mysql
